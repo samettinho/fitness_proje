@@ -8,7 +8,7 @@ import AuthRoute from './routes/Auth.js';
 
 const app = express();
 
-const port = process.env.PORT || 7777;
+const port = process.env.PORT || 9090;
 
 app.use((req, res, next) => {
 	const lang = req.headers.language ? req.headers.language : 'tr';
