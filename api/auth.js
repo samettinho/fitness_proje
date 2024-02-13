@@ -3,6 +3,7 @@ import fs from 'fs';
 import AuthenticateHelper from './helpers/Authenticate';
 
 const app = express();
+app.use(AuthenticateHelper.auth);
 fs.readdir('./api/routes', (err, files) => {
 	if (err) throw err;
 

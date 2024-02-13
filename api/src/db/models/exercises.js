@@ -9,6 +9,6 @@ const exercisesSchema = new Schema({
 	repetetions: { type: Number, required: true },
 	rest_period: { type: Number, required: true },
 	is_removed: { type: Boolean, default: false, required: true }
-}, { timestamps: true }, { collection: 'excercies' });
+}, { timestamps: true }, { collection: 'exercises' });
 
 module.exports = exercisesSchema;

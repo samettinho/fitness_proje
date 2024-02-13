@@ -1,6 +1,6 @@
-import tr from "./tr_TR";
-import en from "./en_EN";
+import tr from './tr_TR';
+import en from './en_EN';
 export default {
-  "en": en,
-  "tr": tr
-}
+	'en': en,
+	'tr': tr
+};
