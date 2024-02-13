@@ -15,10 +15,11 @@ module.exports = [
 			'height': 178,
 			'fat_rate': 25
 		},
+		'roles': [ 1 ],
 		'is_removed': false
 	},
 	{
-		'_id': new ObjectId('65ca0ce60326f75a33a44cfe'),
+		'_id': new ObjectId('65cb29eac574a310963cb732'),
 		'name': 'Hakan',
 		'surname': 'Dinçtürk',
 		'email': 'hakan.dnc@gmail.com',
@@ -30,6 +31,7 @@ module.exports = [
 			'height': 177,
 			'fat_rate': 20
 		},
+		'roles': [ 2 ],
 		'is_removed': false
 	},
 	{
@@ -55,6 +57,7 @@ module.exports = [
 			new ObjectId('65c9fdab9754578fd3b7efc4'),
 			new ObjectId('65c9fdab9754578fd3b7efc5')
 		],
+		'roles': [ 3 ],
 		'is_removed': false
 	}
 ];

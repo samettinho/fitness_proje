@@ -5,5 +5,8 @@ export default {
 		wrong: 'Mail veya şifre hatalı.',
 		loginSuccess: 'Giriş başarılı',
 		login: 'Giriş yapın'
+	},
+	Permission: {
+		permissionDenied: 'Yetkiniz yok.'
 	}
 };

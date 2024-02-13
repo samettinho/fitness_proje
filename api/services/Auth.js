@@ -40,7 +40,7 @@ class Auth {
 			let { email, password } = req.body;
 			const hashedPassword = md5(md5(password) + md5(process.env.PASS_SALT));
 			password = hashedPassword;
-			const user = await db.get().model('users').find({
+			const user = await db.get().model('users').findOne({
 				email: email,
 				password: password
 			});

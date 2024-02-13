@@ -17,7 +17,7 @@ const usersSchema = new Schema({
 		}, required: true
 	},
 	excercies: [ { type: Schema.Types.ObjectId, ref: 'excercies' } ],
-	roles: [ { type: Schema.Types.ObjectId, ref: 'roles', required: true } ],
+	roles: [ { type: Number, required: true } ],
 	is_removed: { type: Boolean, default: false, required: true }
 }, { timestamps: true }, { collection: 'users' });
 

@@ -5,5 +5,8 @@ export default {
 		wrong: 'Email or password is incorrect.',
 		loginSuccess: 'Login  Successful',
 		login: 'Please log in'
+	},
+	Permission: {
+		permissionDenied: 'You do not have permission.'
 	}
 };
