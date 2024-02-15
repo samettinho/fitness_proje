@@ -47,7 +47,7 @@ module.exports = [
 			'height': 181,
 			'fat_rate': 20
 		},
-		'excercies': [
+		'exercises': [
 			new ObjectId('65c9fdab9754578fd3b7efb9'),
 			new ObjectId('65c9fdab9754578fd3b7efba'),
 			new ObjectId('65c9fdab9754578fd3b7efbc'),

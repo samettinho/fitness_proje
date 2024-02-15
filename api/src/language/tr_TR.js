@@ -10,7 +10,8 @@ export default {
 		permissionDenied: 'Yetkiniz yok.'
 	},
 	User: {
-		userListed: 'Kullanıcılar listelendi'
+		userListed: 'Kullanıcılar listelendi',
+		excerciseCreate: 'Egzersiz oluşturuldu'
 	},
 	Excercise: {
 		excerciseListed: 'Egzersizler listelendi',

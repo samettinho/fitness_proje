@@ -35,9 +35,27 @@ class User {
 	static async getAll(req) {
 		try {
 			const { lang } = req.decoded;
-			const users = await db.get().model('users').find({
-				is_removed: false
-			});
+			const users = await db.get().model('users').aggregate([
+				{
+					$match: {
+						is_removed: false
+					}
+				},
+				{
+					$lookup: {
+						from: 'exercises',
+						localField: 'exercises',
+						foreignField: '_id',
+						as: 'exercises'
+					}
+				},
+				{
+					$unwind: '$exercises'
+				},
+				{
+					$unwind: '$roles'
+				}
+			]);
 			return {
 				type: true,
 				message: Language[ lang ].User.userListed,
@@ -84,6 +102,101 @@ class User {
 				type: true,
 				message: Language[ lang ].User.userListed,
 				data: athletes
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
+	static async selfExcerciseCreate(req) {
+		try {
+			const { lang } = req.decoded;
+			const exercises = req.body.exercises;
+			const user_id = new ObjectId(req.session.user._id);
+
+			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
+
+			const result = await db.get().model('users').updateOne({
+				_id: user_id,
+				is_removed: false
+			}, {
+				$addToSet: {
+					exercises: { $each: exerciseObjectIds }
+				}
+			});
+			return {
+				type: true,
+				message: Language[ lang ].User.excerciseCreate,
+				data: result
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
+	static async excerciseCreate(req) {
+		try {
+			const { lang } = req.decoded;
+			const exercises = req.body.exercises;
+			const user_id = new ObjectId(req.params.id);
+
+			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
+
+			const result = await db.get().model('users').updateOne({
+				_id: user_id,
+				is_removed: false
+			}, {
+				$addToSet: {
+					exercises: { $each: exerciseObjectIds }
+				}
+			});
+			return {
+				type: true,
+				message: Language[ lang ].User.excerciseCreate,
+				data: result
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
+	static async getExcercises(req) {
+		try {
+			const { lang } = req.decoded;
+			const user_id = new ObjectId(req.params.id);
+			const userExcercises = await db.get().model('users').aggregate([
+				{
+					$match: {
+						_id: user_id,
+						is_removed: false
+					}
+				},
+				{
+					$lookup: {
+						from: 'exercises',
+						localField: 'exercises',
+						foreignField: '_id',
+						as: 'exercises'
+					}
+				}
+			]);
+
+			return {
+				type: true,
+				message: Language[ lang ].User.excerciseListed,
+				data: userExcercises
 			};
 		}
 		catch (error) {

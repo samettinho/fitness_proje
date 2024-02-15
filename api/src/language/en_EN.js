@@ -10,7 +10,8 @@ export default {
 		permissionDenied: 'You do not have permission.'
 	},
 	User: {
-		userListed: 'Users listed'
+		userListed: 'Users listed',
+		excerciseCreate: 'Exercise created'
 	},
 	Excercise: {
 		excerciseListed: 'Exercises listed',
