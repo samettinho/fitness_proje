@@ -11,10 +11,17 @@ export default {
 	},
 	User: {
 		userListed: 'Kullanıcılar listelendi',
-		excerciseCreate: 'Egzersiz oluşturuldu'
+		excerciseCreate: 'Egzersiz oluşturuldu',
+		exerciseNotFound: 'Kullanıcının egzersizi bulunamadı'
 	},
 	Excercise: {
 		excerciseListed: 'Egzersizler listelendi',
 		created: 'Egzersiz oluşturuldu'
+	},
+	Progress: {
+		created: 'İlerleme kaydedildi',
+		notFound: 'Kullanıcının ilerlemesi bulunamadı',
+		get: 'Kullanıcının ilerlemesi listelendi',
+		exerciseFinished: 'Egzersiz tamamlandı'
 	}
 };

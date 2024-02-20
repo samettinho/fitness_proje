@@ -11,10 +11,17 @@ export default {
 	},
 	User: {
 		userListed: 'Users listed',
-		excerciseCreate: 'Exercise created'
+		excerciseCreate: 'Exercise created',
+		exerciseNotFound: 'User\'s exercise not found'
 	},
 	Excercise: {
 		excerciseListed: 'Exercises listed',
 		created: 'Exercise created'
+	},
+	Progress: {
+		created: 'Progress saved',
+		notFound: 'User\'s Progress not found',
+		get: 'User\'s Progress listed',
+		exerciseFinished: 'Exercise finished'
 	}
 };

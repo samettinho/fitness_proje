@@ -2,6 +2,7 @@ import db from '../src/db';
 import Language from '../src/language';
 import mongoose from 'mongoose';
 import Roles from '../src/enum/Role';
+import e from 'cors';
 const ObjectId = mongoose.Types.ObjectId;
 
 class User {
@@ -117,7 +118,6 @@ class User {
 			const { lang } = req.decoded;
 			const exercises = req.body.exercises;
 			const user_id = new ObjectId(req.session.user._id);
-
 			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
 
 			const result = await db.get().model('users').updateOne({
@@ -128,6 +128,13 @@ class User {
 					exercises: { $each: exerciseObjectIds }
 				}
 			});
+
+			for (const exerciseId of exercises) {
+				let progress = await db.get().model('progresses').create({
+					user_id: user_id,
+					exercise_id: exerciseId
+				});
+			}
 			return {
 				type: true,
 				message: Language[ lang ].User.excerciseCreate,
@@ -146,18 +153,24 @@ class User {
 		try {
 			const { lang } = req.decoded;
 			const exercises = req.body.exercises;
-			const user_id = new ObjectId(req.params.id);
+			const user_id = req.params.id;
 
 			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
 
 			const result = await db.get().model('users').updateOne({
-				_id: user_id,
+				_id: new ObjectId(user_id),
 				is_removed: false
 			}, {
 				$addToSet: {
 					exercises: { $each: exerciseObjectIds }
 				}
 			});
+			for (const exerciseId of exercises) {
+				let progress = await db.get().model('progresses').create({
+					user_id: new ObjectId(user_id),
+					exercise_id: exerciseId
+				});
+			}
 			return {
 				type: true,
 				message: Language[ lang ].User.excerciseCreate,
@@ -175,7 +188,9 @@ class User {
 	static async getExcercises(req) {
 		try {
 			const { lang } = req.decoded;
-			const user_id = new ObjectId(req.params.id);
+
+			const user_id = new ObjectId(req.decoded.user._id);
+
 			const userExcercises = await db.get().model('users').aggregate([
 				{
 					$match: {

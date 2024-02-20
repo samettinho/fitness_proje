@@ -18,6 +18,6 @@ module.exports = [
 		'_id': new ObjectId('65ca22534544d8bb7c36d171'),
 		'name': 'Sporcu',
 		'type': 3,
-		'permissions': [ 2, 5, 6, 13, 14, 15 ]
+		'permissions': [ 2, 5, 6, 13, 14, 15, 16 ]
 	}
 ];

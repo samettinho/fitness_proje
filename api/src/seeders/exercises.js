@@ -22,7 +22,7 @@ module.exports = [
 	},
 	{
 		'_id': new ObjectId('65c9fdab9754578fd3b7efbb'),
-		'name': 'Bench Dips	',
+		'name': 'Bench Dips',
 		'area': 'Arka Kol',
 		'sets': 3,
 		'repetetions': 10,
