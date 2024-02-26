@@ -22,6 +22,7 @@ export default {
 		created: 'İlerleme kaydedildi',
 		notFound: 'Kullanıcının ilerlemesi bulunamadı',
 		get: 'Kullanıcının ilerlemesi listelendi',
-		exerciseFinished: 'Egzersiz tamamlandı'
+		exerciseFinished: 'Egzersiz tamamlandı',
+		exerciseTodayCompleted: 'Egzersiz bugün tamamlanmış'
 	}
 };

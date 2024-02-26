@@ -8,13 +8,15 @@ class Progress {
 
 	static async create(req) {
 		try {
-			const nowDate = moment().format();
-			console.log(nowDate);
 			const { lang } = req.decoded;
 			const { body } = req;
 			const user_id = new ObjectId(req.decoded.user._id);
 			const exercise_id = new ObjectId(body.exercise_id);
 			body.user_id = user_id;
+
+			const today = moment();
+			const day = today.format('DD');
+			const month = today.format('MM');
 
 			//egzersizin kullanıcıya tanımlı olup olmadığını kontrol et ve bilgileri getir
 			const user = await db.get().model('users').aggregate([
@@ -116,8 +118,21 @@ class Progress {
 					}
 				}
 			]);
+			//egzersiz bugün bitirilmiş mi kontrol et
+			const history = await db.get().model('histories').findOne({
+				user_id: user_id,
+				exercise_id: exercise_id,
+				end_of_month: month,
+				end_of_day: day
+			});
+			if (history) {
+				return {
+					type: false,
+					message: Language[ lang ].Progress.exerciseTodayCompleted
+				};
+			}
+			//egzersiz ilerlemesi yoksa oluştur
 			if (progress.length === 0) {
-				//egzersiz ilerlemesi yoksa oluştur
 				const progressCreate = await db.get().model('progresses').create(body);
 				return {
 					type: true,
@@ -141,15 +156,16 @@ class Progress {
 				};
 			}
 			//egzersiz bitirilmişse geçmiş koleksiyonuna kaydet
-			const history = await db.get().model('histories').create({
+			const historyCreate = await db.get().model('histories').create({
 				exercise_id: exercise_id,
 				user_id: user_id,
-				end_of_date: nowDate
+				end_of_month: month,
+				end_of_day: day
 			});
 			return {
 				type: true,
 				message: Language[ lang ].Progress.exerciseFinished,
-				data: history
+				data: historyCreate
 			};
 		}
 		catch (error) {

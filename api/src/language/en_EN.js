@@ -22,6 +22,7 @@ export default {
 		created: 'Progress saved',
 		notFound: 'User\'s Progress not found',
 		get: 'User\'s Progress listed',
-		exerciseFinished: 'Exercise finished'
+		exerciseFinished: 'Exercise finished',
+		exerciseTodayCompleted: 'Exercise completed today'
 	}
 };
