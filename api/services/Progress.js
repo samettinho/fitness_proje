@@ -192,7 +192,8 @@ class Progress {
 						exercise_id: 1,
 						user_id: 1,
 						completed_set: 1,
-						completed_repetetion: 1
+						completed_repetetion: 1,
+						createdAt: 1
 					}
 				},
 				{
@@ -227,10 +228,14 @@ class Progress {
 						exercise_area: '$exercise.area',
 						exercise_sets: '$exercise.sets',
 						exercise_repetetions: '$exercise.repetetions',
-						exercise_rest_period: '$exercise.rest_period'
+						exercise_rest_period: '$exercise.rest_period',
+						createdAt: 1
 					}
 				}
 			]);
+			progress.map((item) => {
+				item.createdAt = moment(item.createdAt).add(3, 'hours');
+			});
 			if (progress.length === 0) {
 				return {
 					type: false,

@@ -120,6 +120,21 @@ class User {
 			const user_id = new ObjectId(req.session.user._id);
 			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
 
+			const userExcercises = await db.get().model('users').aggregate([
+				{
+					$match: {
+						_id: user_id,
+						is_removed: false
+					}
+				},
+				{
+					$project: {
+						exercises: 1,
+						hasAll: { $in: [ { $arrayElemAt: [ exerciseObjectIds, 0 ] }, '$exercises' ] }
+					}
+				}
+			]);
+			console.log(userExcercises);
 			const result = await db.get().model('users').updateOne({
 				_id: user_id,
 				is_removed: false
