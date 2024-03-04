@@ -83,6 +83,29 @@ describe('user services testing', () => {
 			});
 	});
 
+	it('user get exercises', (done) => {
+		agent
+			.get('/user/getExcercises')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				if (res.body.data[ 0 ].exercises.length !== 0) {
+					res.body.should.have.property('type').equal(false);
+					done();
+				}
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
 	it('user exercise create', (done) => {
 		const body = {
 			'exercises': [ '65c9fdab9754578fd3b7efb9' ]
@@ -107,7 +130,7 @@ describe('user services testing', () => {
 			});
 	});
 
-	it('user get exercises', (done) => {
+	it('controlling the exercise created', (done) => {
 		agent
 			.get('/user/getExcercises')
 			.end((err, res) => {
@@ -129,4 +152,126 @@ describe('user services testing', () => {
 				done();
 			});
 	});
+
+	it('user creating non-exercise', (done) => {
+		const body = {
+			'exercises': [ '65c9fdab9755578fd3b7efb9' ]
+		};
+		agent
+			.post('/user/excerciseCreate/65ca0ce60326f75a33a44cfc')
+			.send(body)
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message'
+				);
+				res.body.should.have.property('type').equal(false);
+				res.body.should.have.property('message').equal('Egzersiz bulunamadı');
+				done();
+			});
+	});
+
+	it('user update', (done) => {
+		const body = {
+			'health': {
+				'weight': 93
+			}
+		};
+		agent
+			.post('/user/65ca0ce60326f75a33a44cfc')
+			.send(body)
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
+	it('user update control', (done) => {
+		agent
+			.get('/user/65ca0ce60326f75a33a44cfc')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				if (res.body.data[ 0 ].health.weight !== 93) {
+					res.body.should.have.property('type').equal(false);
+					done();
+				}
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
+	it('user self exercise create', (done) => {
+		const body = {
+			'exercises': [ '65c9fdab9754578fd3b7efbb', '65c9fdab9754578fd3b7efc5' ]
+		};
+		agent
+			.post('/user/selfExcerciseCreate')
+			.send(body)
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
+	it('controlling the self exercise created', (done) => {
+		agent
+			.get('/user/getExcercises')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				if (res.body.data[ 0 ].exercises.length !== 3) {
+					res.body.should.have.property('type').equal(false);
+					done();
+				}
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
 });

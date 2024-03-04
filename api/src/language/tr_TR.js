@@ -17,7 +17,8 @@ export default {
 	},
 	Excercise: {
 		excerciseListed: 'Egzersizler listelendi',
-		created: 'Egzersiz oluşturuldu'
+		created: 'Egzersiz oluşturuldu',
+		exerciseNotFound: 'Egzersiz bulunamadı'
 	},
 	Progress: {
 		created: 'İlerleme kaydedildi',

@@ -13,5 +13,6 @@ app.get('/athletes', PermissionHelper.checkPermission(PermissionEnum.ATHLETE_LIS
 app.post('/excerciseCreate/:id', PermissionHelper.checkPermission(PermissionEnum.EXERCISE_MANAGEMENT), UserController.excerciseCreate);
 app.get('/getExcercises', PermissionHelper.checkPermission(PermissionEnum.EXERCISE_MANAGEMENT), UserController.getExcercises);
 app.post('/:id', PermissionHelper.checkPermission(PermissionEnum.USER_UPDATE), UserController.update);
+app.get('/:id', PermissionHelper.checkPermission(PermissionEnum.USER_LIST), UserController.get);
 
 module.exports = app;

@@ -120,6 +120,15 @@ class User {
 			const user_id = new ObjectId(req.session.user._id);
 			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
 
+			const excerises = await db.get().model('exercises').find({
+				_id: { $in: exerciseObjectIds }
+			});
+			if (excerises.length !== exercises.length) {
+				return {
+					type: false,
+					message: Language[ lang ].Excercise.excerciseNotFound
+				};
+			}
 			const userExcercises = await db.get().model('users').aggregate([
 				{
 					$match: {
@@ -134,7 +143,6 @@ class User {
 					}
 				}
 			]);
-			console.log(userExcercises);
 			const result = await db.get().model('users').updateOne({
 				_id: user_id,
 				is_removed: false
@@ -172,6 +180,15 @@ class User {
 
 			const exerciseObjectIds = exercises.map(exerciseId => new ObjectId(exerciseId));
 
+			const excerises = await db.get().model('exercises').find({
+				_id: { $in: exerciseObjectIds }
+			});
+			if (excerises.length !== exercises.length) {
+				return {
+					type: false,
+					message: Language[ lang ].Excercise.exerciseNotFound
+				};
+			}
 			const result = await db.get().model('users').updateOne({
 				_id: new ObjectId(user_id),
 				is_removed: false
@@ -227,6 +244,46 @@ class User {
 				type: true,
 				message: Language[ lang ].User.excerciseListed,
 				data: userExcercises
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
+	static async get(req) {
+		try {
+			const { lang } = req.decoded;
+			const user_id = new ObjectId(req.params.id);
+			const users = await db.get().model('users').aggregate([
+				{
+					$match: {
+						_id: user_id,
+						is_removed: false
+					}
+				},
+				{
+					$lookup: {
+						from: 'exercises',
+						localField: 'exercises',
+						foreignField: '_id',
+						as: 'exercises'
+					}
+				},
+				{
+					$unwind: '$exercises'
+				},
+				{
+					$unwind: '$roles'
+				}
+			]);
+			return {
+				type: true,
+				message: Language[ lang ].User.userListed,
+				data: users
 			};
 		}
 		catch (error) {

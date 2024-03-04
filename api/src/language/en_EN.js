@@ -17,7 +17,8 @@ export default {
 	},
 	Excercise: {
 		excerciseListed: 'Exercises listed',
-		created: 'Exercise created'
+		created: 'Exercise created',
+		exerciseNotFound: 'Exercise not found'
 	},
 	Progress: {
 		created: 'Progress saved',
