@@ -257,6 +257,87 @@ class Progress {
 		}
 	}
 
+	static async getOne(req) {
+		try {
+			const { lang } = req.decoded;
+			const user_id = new ObjectId(req.decoded.user._id);
+			const progress = await db.get().model('progresses').aggregate([
+				{
+					$match: {
+						user_id: user_id
+					}
+				},
+				{
+					$project: {
+						_id: 1,
+						exercise_id: 1,
+						user_id: 1,
+						completed_set: 1,
+						completed_repetetion: 1,
+						createdAt: 1
+					}
+				},
+				{
+					$lookup: {
+						from: 'exercises',
+						localField: 'exercise_id',
+						foreignField: '_id',
+						as: 'exercise'
+					}
+				},
+				{
+					$unwind: '$exercise'
+				},
+				{
+					$lookup: {
+						from: 'users',
+						localField: 'user_id',
+						foreignField: '_id',
+						as: 'user'
+					}
+				},
+				{
+					$unwind: '$user'
+				},
+				{
+					$project: {
+						_id: 1,
+						user_name: '$user.name',
+						completed_set: 1,
+						completed_repetetion: 1,
+						exercise_name: '$exercise.name',
+						exercise_area: '$exercise.area',
+						exercise_sets: '$exercise.sets',
+						exercise_repetetions: '$exercise.repetetions',
+						exercise_rest_period: '$exercise.rest_period',
+						createdAt: 1
+					}
+				}
+			]);
+			progress.map((item) => {
+				item.createdAt = moment(item.createdAt).add(3, 'hours');
+			});
+			if (progress.length === 0) {
+				return {
+					type: false,
+					message: Language[ lang ].Progress.notFound
+				};
+			}
+			return {
+				type: true,
+				message: Language[ lang ].Progress.get,
+				data: progress
+			};
+
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
 }
 
 export default Progress;
