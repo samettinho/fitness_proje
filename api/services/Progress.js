@@ -118,6 +118,15 @@ class Progress {
 					}
 				}
 			]);
+			//egzersiz ilerlemesi yoksa oluştur
+			if (progress.length === 0) {
+				const progressCreate = await db.get().model('progresses').create(body);
+				return {
+					type: true,
+					message: Language[ lang ].Progress.created,
+					data: user
+				};
+			}
 			//egzersiz bugün bitirilmiş mi kontrol et
 			const history = await db.get().model('histories').findOne({
 				user_id: user_id,
@@ -126,18 +135,18 @@ class Progress {
 				end_of_day: day
 			});
 			if (history) {
+				//egzersiz bugün bitirilmiş olduğu için set sayısını sıfırla
+				const progressUpdate = await db.get().model('progresses').updateOne({
+					user_id: user_id,
+					exercise_id: exercise_id
+				}, {
+					$set: {
+						completed_set: 0
+					}
+				});
 				return {
 					type: false,
 					message: Language[ lang ].Progress.exerciseTodayCompleted
-				};
-			}
-			//egzersiz ilerlemesi yoksa oluştur
-			if (progress.length === 0) {
-				const progressCreate = await db.get().model('progresses').create(body);
-				return {
-					type: true,
-					message: Language[ lang ].Progress.created,
-					data: user
 				};
 			}
 			//egzersiz ilerlemesi varsa ve set sayısı tamamlanmamışsa güncelle
