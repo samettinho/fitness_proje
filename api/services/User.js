@@ -2,7 +2,6 @@ import db from '../src/db';
 import Language from '../src/language';
 import mongoose from 'mongoose';
 import Roles from '../src/enum/Role';
-import e from 'cors';
 const ObjectId = mongoose.Types.ObjectId;
 
 class User {

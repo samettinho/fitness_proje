@@ -26,5 +26,8 @@ export default {
 		get: 'User\'s Progress listed',
 		exerciseFinished: 'Exercise finished',
 		exerciseTodayCompleted: 'Exercise completed today'
+	},
+	History: {
+		historyListed: 'History listed'
 	}
 };

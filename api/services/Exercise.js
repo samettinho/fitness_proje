@@ -1,7 +1,6 @@
 import db from '../src/db';
 import dotenv from 'dotenv/config';
 import Language from '../src/language/index';
-import md5 from 'md5';
 
 class Excercise {
 

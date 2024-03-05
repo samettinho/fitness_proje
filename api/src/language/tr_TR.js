@@ -26,5 +26,8 @@ export default {
 		get: 'Kullanıcının ilerlemesi listelendi',
 		exerciseFinished: 'Egzersiz tamamlandı',
 		exerciseTodayCompleted: 'Egzersiz bugün tamamlanmış'
+	},
+	History: {
+		historyListed: 'Geçmiş listelendi'
 	}
 };
