@@ -26,7 +26,7 @@ describe('progress services testing', () => {
 			});
 	});
 
-	it('get all user progress', (done) => {
+	it('get user progress', (done) => {
 		agent
 			.get('/progress/getUser')
 			.end((err, res) => {
@@ -66,6 +66,26 @@ describe('progress services testing', () => {
 				);
 				res.body.should.have.property('type').equal(true);
 				res.body.should.have.property('message').equal('İlerleme kaydedildi');
+				done();
+			});
+	});
+
+	it('user self progress create control', (done) => {
+		agent
+			.get('/progress/getOneProgress/65c9fdab9754578fd3b7efbb')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				res.body.should.have.property('type').equal(true);
+				res.body.data[ 0 ].should.have.property('completed_set').equal(1);
 				done();
 			});
 	});

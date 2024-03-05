@@ -266,14 +266,16 @@ class Progress {
 		}
 	}
 
-	static async getOne(req) {
+	static async getOneProgress(req) {
 		try {
 			const { lang } = req.decoded;
 			const user_id = new ObjectId(req.decoded.user._id);
+			const exercise_id = new ObjectId(req.params.exercise_id);
 			const progress = await db.get().model('progresses').aggregate([
 				{
 					$match: {
-						user_id: user_id
+						user_id: user_id,
+						exercise_id: exercise_id
 					}
 				},
 				{
