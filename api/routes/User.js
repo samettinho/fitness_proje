@@ -7,6 +7,7 @@ import PermissionEnum from '../src/enum/Permissions';
 const app = express();
 
 app.post('/selfExcerciseCreate', PermissionHelper.checkPermission(PermissionEnum.EXERCISE_MANAGEMENT), UserController.selfExcerciseCreate);
+app.post('/exerciseDelete/:exercise_id', PermissionHelper.checkPermission(PermissionEnum.EXERCISE_MANAGEMENT), UserController.exerciseDelete);
 app.get('/', PermissionHelper.checkPermission(PermissionEnum.USER_LIST), UserController.getAll);
 app.get('/trainers', PermissionHelper.checkPermission(PermissionEnum.TRAINER_LIST), UserController.getTrainers);
 app.get('/athletes', PermissionHelper.checkPermission(PermissionEnum.ATHLETE_LIST), UserController.getAthletes);

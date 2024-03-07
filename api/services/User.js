@@ -293,6 +293,63 @@ class User {
 		}
 	}
 
+	static async exerciseDelete(req) {
+		try {
+			const { lang } = req.decoded;
+			const exercise_id = new ObjectId(req.params.exercise_id);
+			const user_id = new ObjectId(req.decoded.user._id);
+
+			const exercise = await db.get().model('users').aggregate([
+				{
+					$match: {
+						_id: user_id
+					}
+				},
+				{
+					$lookup: {
+						from: 'exercises',
+						localField: 'exercises',
+						foreignField: '_id',
+						as: 'exercises'
+					}
+				},
+				{
+					$unwind: '$exercises'
+				},
+				{
+					$match: {
+						'exercises._id': exercise_id
+					}
+				}
+			]);
+			if (exercise.length === 0) {
+				return {
+					type: false,
+					message: Language[ lang ].User.exerciseNotFound
+				};
+			}
+			const result = await db.get().model('users').updateOne({
+				_id: user_id,
+				is_removed: false
+			}, {
+				$pull: {
+					exercises: exercise_id
+				}
+			});
+			return {
+				type: true,
+				message: Language[ lang ].User.excerciseDelete,
+				data: result
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
 }
 
 export default User;

@@ -274,4 +274,41 @@ describe('user services testing', () => {
 			});
 	});
 
+	it('user exercise delete', (done) => {
+		agent
+			.post('/user/exerciseDelete/65c9fdab9754578fd3b7efb9')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
+	it('user non-exercise delete', (done) => {
+		agent
+			.post('/user/exerciseDelete/65c9fdab9754578fd3b7eaaa')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message'
+				);
+				res.body.should.have.property('type').equal(false);
+				done();
+			});
+	});
+
 });

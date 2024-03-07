@@ -108,6 +108,19 @@ class User {
 		}
 	}
 
+	static async exerciseDelete(req, res) {
+		try {
+			const result = await UserService.exerciseDelete(req);
+			if (!result.type) {
+				return res.json(Helpers.responseMessage(ResponseEnum.ERROR, result.message));
+			}
+			return res.json(Helpers.responseMessage(ResponseEnum.SUCCESS, result.message, result.data));
+		}
+		catch (error) {
+			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
+		}
+	}
+
 }
 
 export default User;

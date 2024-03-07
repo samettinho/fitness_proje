@@ -13,7 +13,8 @@ export default {
 		userListed: 'Kullanıcılar listelendi',
 		excerciseCreate: 'Egzersiz oluşturuldu',
 		exerciseNotFound: 'Kullanıcının egzersizi bulunamadı',
-		excerciseListed: 'Egzersizler listelendi'
+		excerciseListed: 'Egzersizler listelendi',
+		excerciseDelete: 'Egzersiz silindi'
 	},
 	Excercise: {
 		excerciseListed: 'Egzersizler listelendi',

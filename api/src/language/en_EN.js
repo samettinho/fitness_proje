@@ -13,7 +13,8 @@ export default {
 		userListed: 'Users listed',
 		excerciseCreate: 'Exercise created',
 		exerciseNotFound: 'User\'s exercise not found',
-		excerciseListed: 'Exercises listed'
+		excerciseListed: 'Exercises listed',
+		excerciseDelete: 'Exercise deleted'
 	},
 	Excercise: {
 		excerciseListed: 'Exercises listed',
