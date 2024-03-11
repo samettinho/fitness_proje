@@ -2,7 +2,33 @@ import UserService from '../services/User';
 import Helpers from '../helpers/Helpers';
 import ResponseEnum from '../src/enum/Response';
 
+/**
+ * @typedef update
+ * @property {string} name
+ * @property {string} surname
+ * @property {string} password
+ * @property {string} gender
+ * @property {string} age
+ * @property {health.model} health
+ * @property {Array} exercises
+ */
+
+/**
+ * @typedef excerciseCreate
+ * @property {Array} exercises
+ */
+
 class User {
+
+	/**
+	 * @swagger
+	 * @route POST /user/{id}
+	 * @group user - Post operation about user update
+	 * @summary endpoint for adding a user update
+	 * @param {update.model} body.body.required
+	 * @returns {object} 200 - An array of  user update info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async update(req, res) {
 		try {
@@ -56,6 +82,16 @@ class User {
 		}
 	}
 
+	/**
+	 * @swagger
+	 * @route POST /user/excerciseCreate/{id}
+	 * @group user - Post operation about user excercise Create
+	 * @summary endpoint for adding a user excercise Create
+	 * @param {excerciseCreate.model} body.body.required
+	 * @returns {object} 200 - An array of  user excerciseCreate info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
 	static async excerciseCreate(req, res) {
 		try {
 			const result = await UserService.excerciseCreate(req);
@@ -68,6 +104,16 @@ class User {
 			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
 		}
 	}
+
+	/**
+	 * @swagger
+	 * @route POST /user/selfExcerciseCreate
+	 * @group user - Post operation about user self excercise Create
+	 * @summary endpoint for adding a user self excercise Create
+	 * @param {excerciseCreate.model} body.body.required
+	 * @returns {object} 200 - An array of  user self excerciseCreate info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async selfExcerciseCreate(req, res) {
 		try {
@@ -107,6 +153,15 @@ class User {
 			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
 		}
 	}
+
+	/**
+	 * @swagger
+	 * @route POST /user/exerciseDelete/{exercise_id}
+	 * @group user - Post operation about user  excercise delete
+	 * @summary endpoint for adding a user  excercise delete
+	 * @returns {object} 200 - An array of  user  excercise delete info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async exerciseDelete(req, res) {
 		try {

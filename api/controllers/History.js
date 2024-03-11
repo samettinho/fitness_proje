@@ -4,6 +4,14 @@ import ResponseEnum from '../src/enum/Response';
 
 class History {
 
+	/**
+	 * @route GET /history
+	 * @group history
+	 * @summary history get all
+	 * @returns {object} 200 - An array of  history get all info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
 	static async getAll(req, res) {
 		try {
 			const result = await HistoryService.getAll(req);

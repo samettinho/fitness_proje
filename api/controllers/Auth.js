@@ -2,7 +2,42 @@ import AuthService from '../services/Auth';
 import Helpers from '../helpers/Helpers';
 import ResponseEnum from '../src/enum/Response';
 
+/**
+ * @typedef login
+ * @property {string} email.required
+ * @property {string} password.required
+ */
+
+/**
+ * @typedef health
+ * @property {integer} weight.required
+ * @property {integer} height.required
+ * @property {integer} fat_rate.required
+ */
+
+/**
+ * @typedef register
+ * @property {string} name.required
+ * @property {string} surname.required
+ * @property {string} password.required
+ * @property {string} gender.required
+ * @property {string} age.required
+ * @property {health.model} health.required
+ * @property {Array} exercises.required
+ * @property {Array} roles.required
+ */
+
 class Auth {
+
+	/**
+	 * @swagger
+	 * @route POST /auth/register
+	 * @group auth - Post operation about register
+	 * @summary endpoint for adding a login
+	 * @param {register.model} body.body.required
+	 * @returns {object} 200 - An array of  login info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async register(req, res) {
 		try {
@@ -16,6 +51,16 @@ class Auth {
 			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
 		}
 	}
+
+	/**
+	 * @swagger
+	 * @route POST /auth/login
+	 * @group auth - Post operation about login
+	 * @summary endpoint for adding a login
+	 * @param {login.model} body.body.required
+	 * @returns {object} 200 - An array of  login info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async login(req, res) {
 		try {

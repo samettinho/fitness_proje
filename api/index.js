@@ -5,10 +5,14 @@ import DB from './src/db/index';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import AuthRoute from './routes/Auth.js';
+import SwaggerOptions from './src/config/swaggerOptions.js';
 
 const app = express();
 
 const port = process.env.PORT || 9090;
+
+const expressSwagger = require('express-swagger-generator')(app);
+expressSwagger(SwaggerOptions);
 
 app.use((req, res, next) => {
 	const lang = req.headers.language ? req.headers.language : 'tr';
