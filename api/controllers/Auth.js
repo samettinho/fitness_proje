@@ -14,14 +14,14 @@ import ResponseEnum from '../src/enum/Response';
  * @property {integer} height.required
  * @property {integer} fat_rate.required
  */
-
 /**
  * @typedef register
  * @property {string} name.required
  * @property {string} surname.required
+ * @property {string} email.required
  * @property {string} password.required
- * @property {string} gender.required
- * @property {string} age.required
+ * @property {integer} gender.required
+ * @property {integer} age.required
  * @property {health.model} health.required
  */
 

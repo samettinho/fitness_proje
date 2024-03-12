@@ -13,6 +13,8 @@ app.get('/trainers', PermissionHelper.checkPermission(PermissionEnum.TRAINER_LIS
 app.get('/athletes', PermissionHelper.checkPermission(PermissionEnum.ATHLETE_LIST), UserController.getAthletes);
 app.post('/excerciseCreate/:id', PermissionHelper.checkPermission(PermissionEnum.EXERCISE_MANAGEMENT), UserController.excerciseCreate);
 app.get('/getExcercises', PermissionHelper.checkPermission(PermissionEnum.EXERCISE_MANAGEMENT), UserController.getExcercises);
+app.get('/delete', PermissionHelper.checkPermission(PermissionEnum.ATHLETE_DELETE), UserController.delete);
+app.post('/trainerCreate', PermissionHelper.checkPermission(PermissionEnum.TRAINER_ADD), UserController.trainerCreate);
 app.post('/:id', PermissionHelper.checkPermission(PermissionEnum.USER_UPDATE), UserController.update);
 app.get('/:id', PermissionHelper.checkPermission(PermissionEnum.USER_LIST), UserController.get);
 

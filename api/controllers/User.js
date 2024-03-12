@@ -17,6 +17,22 @@ import ResponseEnum from '../src/enum/Response';
  * @typedef selfExcerciseCreate
  * @property {Array<string>} exercises
  */
+/**
+ * @typedef health
+ * @property {integer} weight.required
+ * @property {integer} height.required
+ * @property {integer} fat_rate.required
+ */
+/**
+ * @typedef trainerCreate
+ * @property {string} name.required
+ * @property {string} surname.required
+ * @property {string} email.required
+ * @property {string} password.required
+ * @property {integer} gender.required
+ * @property {integer} age.required
+ * @property {health.model} health.required
+ */
 
 class User {
 
@@ -210,6 +226,52 @@ class User {
 	static async exerciseDelete(req, res) {
 		try {
 			const result = await UserService.exerciseDelete(req);
+			if (!result.type) {
+				return res.json(Helpers.responseMessage(ResponseEnum.ERROR, result.message));
+			}
+			return res.json(Helpers.responseMessage(ResponseEnum.SUCCESS, result.message, result.data));
+		}
+		catch (error) {
+			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
+		}
+	}
+
+	/**
+	 * @swagger
+	 * @route POST /user/delete/{id}
+	 * @group user - Post operation about user delete
+	 * @param {integer} id.path.required
+	 * @summary endpoint for adding a user delete
+	 * @returns {object} 200 - An array of user delete info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
+	static async delete(req, res) {
+		try {
+			const result = await UserService.delete(req);
+			if (!result.type) {
+				return res.json(Helpers.responseMessage(ResponseEnum.ERROR, result.message));
+			}
+			return res.json(Helpers.responseMessage(ResponseEnum.SUCCESS, result.message, result.data));
+		}
+		catch (error) {
+			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
+		}
+	}
+
+	/**
+	 * @swagger
+	 * @route POST /user/trainerCreate
+	 * @group user - Post operation about trainerCreate
+	 * @summary endpoint for adding a trainerCreate
+	 * @param {trainerCreate.model} body.body.required
+	 * @returns {object} 200 - An array of  trainerCreate info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
+	static async trainerCreate(req, res) {
+		try {
+			const result = await UserService.trainerCreate(req);
 			if (!result.type) {
 				return res.json(Helpers.responseMessage(ResponseEnum.ERROR, result.message));
 			}

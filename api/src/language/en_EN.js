@@ -14,7 +14,8 @@ export default {
 		excerciseCreate: 'Exercise created',
 		exerciseNotFound: 'User\'s exercise not found',
 		excerciseListed: 'Exercises listed',
-		excerciseDelete: 'Exercise deleted'
+		excerciseDelete: 'Exercise deleted',
+		userDeleted: 'User deleted'
 	},
 	Excercise: {
 		excerciseListed: 'Exercises listed',

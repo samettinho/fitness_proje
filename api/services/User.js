@@ -350,6 +350,53 @@ class User {
 		}
 	}
 
+	static async delete(req) {
+		try {
+			const { lang } = req.decoded;
+			const user_id = new ObjectId(req.params.id);
+			const result = await db.get().model('users').updateOne({
+				_id: user_id,
+				is_removed: false
+			}, {
+				$set: {
+					is_removed: true
+				}
+			});
+			return {
+				type: true,
+				message: Language[ lang ].User.userDeleted,
+				data: result
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
+	static async trainerCreate(req) {
+		try {
+			const { lang } = req.decoded;
+			const user = req.body;
+			user.roles = [ Roles.TRAINER ];
+			console.log(user);
+			const result = await db.get().model('users').create(user);
+			return {
+				type: true,
+				message: Language[ lang ].Auth.success,
+				data: result
+			};
+		}
+		catch (error) {
+			return {
+				type: false,
+				message: error.message
+			};
+		}
+	}
+
 }
 
 export default User;
