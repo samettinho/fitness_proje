@@ -57,6 +57,7 @@ class Progress {
 	 * @route GET /progress/getOneProgress/{exercise_id}
 	 * @group progress
 	 * @summary get One Progress
+	 * @param {string} exercise_id.path.required
 	 * @returns {object} 200 - An array of  get One Progress info
 	 * @returns {Errors} 500 - Internal server error
 	 */

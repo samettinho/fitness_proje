@@ -10,12 +10,12 @@ import ResponseEnum from '../src/enum/Response';
  * @property {string} gender
  * @property {string} age
  * @property {health.model} health
- * @property {Array} exercises
+ * @property {Array<string>} exercises
  */
 
 /**
- * @typedef excerciseCreate
- * @property {Array} exercises
+ * @typedef selfExcerciseCreate
+ * @property {Array<string>} exercises
  */
 
 class User {
@@ -25,6 +25,7 @@ class User {
 	 * @route POST /user/{id}
 	 * @group user - Post operation about user update
 	 * @summary endpoint for adding a user update
+	 * @param {integer} id.path.required
 	 * @param {update.model} body.body.required
 	 * @returns {object} 200 - An array of  user update info
 	 * @returns {Errors} 500 - Internal server error
@@ -43,6 +44,14 @@ class User {
 		}
 	}
 
+	/**
+	 * @route GET /user
+	 * @group user
+	 * @summary get all Users
+	 * @returns {object} 200 - An array of all users info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
 	static async getAll(req, res) {
 		try {
 			const result = await UserService.getAll(req);
@@ -56,6 +65,14 @@ class User {
 		}
 	}
 
+	/**
+	 * @route GET /user/getTrainers
+	 * @group user
+	 * @summary get all trainers
+	 * @returns {object} 200 - An array of all trainers info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
 	static async getTrainers(req, res) {
 		try {
 			const result = await UserService.getTrainers(req);
@@ -68,6 +85,14 @@ class User {
 			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
 		}
 	}
+
+	/**
+	 * @route GET /user/getAthletes
+	 * @group user
+	 * @summary get all athletes
+	 * @returns {object} 200 - An array of all athletes info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async getAthletes(req, res) {
 		try {
@@ -87,6 +112,7 @@ class User {
 	 * @route POST /user/excerciseCreate/{id}
 	 * @group user - Post operation about user excercise Create
 	 * @summary endpoint for adding a user excercise Create
+	 * @param {integer} id.path.required
 	 * @param {excerciseCreate.model} body.body.required
 	 * @returns {object} 200 - An array of  user excerciseCreate info
 	 * @returns {Errors} 500 - Internal server error
@@ -110,7 +136,7 @@ class User {
 	 * @route POST /user/selfExcerciseCreate
 	 * @group user - Post operation about user self excercise Create
 	 * @summary endpoint for adding a user self excercise Create
-	 * @param {excerciseCreate.model} body.body.required
+	 * @param {selfExcerciseCreate.model} body.body.required
 	 * @returns {object} 200 - An array of  user self excerciseCreate info
 	 * @returns {Errors} 500 - Internal server error
 	 */
@@ -128,6 +154,14 @@ class User {
 		}
 	}
 
+	/**
+	 * @route GET /user/getExcercises
+	 * @group user
+	 * @summary get all User excercises
+	 * @returns {object} 200 - An array of all user exercises info
+	 * @returns {Errors} 500 - Internal server error
+	 */
+
 	static async getExcercises(req, res) {
 		try {
 			const result = await UserService.getExcercises(req);
@@ -140,6 +174,15 @@ class User {
 			return res.json(Helpers.responseMessage(ResponseEnum.ERROR, error.message));
 		}
 	}
+
+	/**
+	 * @route GET /user/{id}
+	 * @group user
+	 * @summary get  Users
+	 * @param {integer} id.path.required
+	 * @returns {object} 200 - An array of all user info
+	 * @returns {Errors} 500 - Internal server error
+	 */
 
 	static async get(req, res) {
 		try {
@@ -158,6 +201,7 @@ class User {
 	 * @swagger
 	 * @route POST /user/exerciseDelete/{exercise_id}
 	 * @group user - Post operation about user  excercise delete
+	 * @param {integer} exercise_id.path.required
 	 * @summary endpoint for adding a user  excercise delete
 	 * @returns {object} 200 - An array of  user  excercise delete info
 	 * @returns {Errors} 500 - Internal server error

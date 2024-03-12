@@ -16,7 +16,7 @@ const usersSchema = new Schema({
 			fat_rate: { type: Number, required: true }
 		}, required: true
 	},
-	exercises: [ { type: Schema.Types.ObjectId, ref: 'exercises' } ],
+	exercises: [ { type: Schema.Types.ObjectId, ref: 'exercises', default: [] } ],
 	roles: [ { type: Number, required: true } ],
 	is_removed: { type: Boolean, default: false, required: true }
 }, { timestamps: true }, { collection: 'users' });

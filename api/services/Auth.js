@@ -2,6 +2,7 @@ import db from '../src/db';
 import dotenv from 'dotenv/config';
 import Language from '../src/language/index';
 import md5 from 'md5';
+import Role from '../src/enum/Role';
 
 class Auth {
 
@@ -11,6 +12,7 @@ class Auth {
 			const { body } = req;
 			const hashedPassword = md5(md5(body.password) + md5(process.env.PASS_SALT));
 			body.password = hashedPassword;
+			body.roles = [ Role.ATHLETE ];
 
 			const emailIsTaken = await db.get().model('users').find({ email: body.email });
 			if (emailIsTaken.length !== 0) {

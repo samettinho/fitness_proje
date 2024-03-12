@@ -3,21 +3,21 @@ import Helpers from '../helpers/Helpers';
 import ResponseEnum from '../src/enum/Response';
 
 /**
- * @typedef create
+ * @typedef exerciseCreate
  * @property {string} name.required
  * @property {string} area.required
- * @property {string} sets.required
- * @property {string} repetetions.required
- * @property {string} rest_period.required
+ * @property {integer} sets.required
+ * @property {integer} repetetions.required
+ * @property {integer} rest_period.required
  */
-class User {
+class Exercise {
 
 	/**
 	 * @swagger
 	 * @route POST /exercise
 	 * @group exercise - Post operation about exercise create
 	 * @summary endpoint for adding a exercise create
-	 * @param {create.model} body.body.required
+	 * @param {exerciseCreate.model} body.body.required
 	 * @returns {object} 200 - An array of  exercise create info
 	 * @returns {Errors} 500 - Internal server error
 	 */
@@ -58,4 +58,4 @@ class User {
 
 }
 
-export default User;
+export default Exercise;

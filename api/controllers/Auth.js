@@ -23,8 +23,6 @@ import ResponseEnum from '../src/enum/Response';
  * @property {string} gender.required
  * @property {string} age.required
  * @property {health.model} health.required
- * @property {Array} exercises.required
- * @property {Array} roles.required
  */
 
 class Auth {
