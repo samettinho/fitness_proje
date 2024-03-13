@@ -279,6 +279,12 @@ class User {
 					$unwind: '$roles'
 				}
 			]);
+			if (users.length === 0) {
+				return {
+					type: false,
+					message: Language[ lang ].User.userNotFound
+				};
+			}
 			return {
 				type: true,
 				message: Language[ lang ].User.userListed,

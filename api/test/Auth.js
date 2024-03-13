@@ -73,12 +73,7 @@ describe('auth services testing', () => {
 				'weight': 95.7,
 				'height': 188,
 				'fat_rate': 25
-			},
-			'exercises': [
-			],
-			'roles': [
-				3
-			]
+			}
 		};
 		agent
 			.post('/auth/register')

@@ -311,4 +311,76 @@ describe('user services testing', () => {
 			});
 	});
 
+	it('user delete', (done) => {
+		agent
+			.post('/user/delete/65cb29eac574a310963cb732')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
+	it('user delete control', (done) => {
+		agent
+			.get('/user/65cb29eac574a310963cb732')
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message'
+				);
+				res.body.should.have.property('type').equal(false);
+				done();
+			});
+	});
+
+	it('trainer create', (done) => {
+		const body = {
+			'name': 'Nurullah',
+			'surname': 'Kılıç',
+			'email': 'nurullah.kilic@gmail.com',
+			'password': '123456',
+			'gender': 1,
+			'age': 24,
+			'health': {
+				'weight': 68.7,
+				'height': 175,
+				'fat_rate': 17
+			}
+		};
+		agent
+			.post('/user/trainerCreate')
+			.send(body)
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+
+				res.should.have.status(200);
+				res.body.should.be.a('object');
+				res.body.should.have.keys(
+					'type',
+					'message',
+					'data'
+				);
+				res.body.should.have.property('type').equal(true);
+				done();
+			});
+	});
+
 });
