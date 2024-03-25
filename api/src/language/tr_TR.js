@@ -32,5 +32,9 @@ export default {
 	},
 	History: {
 		historyListed: 'Geçmiş listelendi'
+	},
+	Mail: {
+		exerciseRemember: 'Egzersiz hatırlatma',
+		rememberText: 'Sporcu {{surname}}, <br/><br/> Egzersiz yapmayı unutma... <br/><br/>',
 	}
 };

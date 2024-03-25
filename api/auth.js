@@ -1,9 +1,13 @@
 import express from 'express';
 import fs from 'fs';
 import AuthenticateHelper from './helpers/Authenticate';
+import Helpers from './helpers/Helpers';
 
 const app = express();
 app.use(AuthenticateHelper.auth);
+
+setInterval(Helpers.checkDailyExercise, 2);
+
 fs.readdir('./api/routes', (err, files) => {
 	if (err) throw err;
 

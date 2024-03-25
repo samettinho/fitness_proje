@@ -10,7 +10,6 @@ class History {
 		try {
 			const { lang } = req.decoded;
 			const user_id = req.decoded.user._id;
-			console.log(user_id);
 			const histories = await db.get().model('histories').aggregate([
 				{
 					$match: {

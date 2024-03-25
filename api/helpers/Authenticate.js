@@ -1,5 +1,5 @@
 import Language from '../src/language/index';
-
+import Helpers from './Helpers';
 class Authenticate {
 
 	static async auth(req, res, next) {

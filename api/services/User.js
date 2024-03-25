@@ -387,7 +387,6 @@ class User {
 			const { lang } = req.decoded;
 			const user = req.body;
 			user.roles = [ Roles.TRAINER ];
-			console.log(user);
 			const result = await db.get().model('users').create(user);
 			return {
 				type: true,
